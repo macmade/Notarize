@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		059A0B5D2190504B004E1D89 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 059A0B592190504B004E1D89 /* MainMenu.xib */; };
+		059A0B5E2190504B004E1D89 /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059A0B5C2190504B004E1D89 /* ApplicationDelegate.swift */; };
+		059A0B61219050A3004E1D89 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059A0B60219050A3004E1D89 /* MainWindowController.swift */; };
+		059A0B6421905107004E1D89 /* Notarize.MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 059A0B6221905107004E1D89 /* Notarize.MainWindowController.xib */; };
+		059A0B6721905325004E1D89 /* Accounts.icns in Resources */ = {isa = PBXBuildFile; fileRef = 059A0B6621905325004E1D89 /* Accounts.icns */; };
+		059A0B6921905534004E1D89 /* AccountWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059A0B6821905534004E1D89 /* AccountWindowController.swift */; };
+		059A0B6C2190554D004E1D89 /* Notarize.AccountWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 059A0B6A2190554D004E1D89 /* Notarize.AccountWindowController.xib */; };
+		05D7469221919DE7002CF085 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D7469121919DE7002CF085 /* Preferences.swift */; };
+		05D7469421919F53002CF085 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D7469321919F53002CF085 /* Account.swift */; };
+		05D746BA2191F0BB002CF085 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D746B92191F0BB002CF085 /* Keychain.swift */; };
+		05D746E021922726002CF085 /* ALTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D746DF21922726002CF085 /* ALTool.swift */; };
+		05D746E2219230FC002CF085 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D746E1219230FC002CF085 /* HistoryViewController.swift */; };
+		05D746E52192315C002CF085 /* Notarize.HistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05D746E32192315C002CF085 /* Notarize.HistoryViewController.xib */; };
+		05D746E721923630002CF085 /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D746E621923630002CF085 /* HistoryItem.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		059A0B4721905010004E1D89 /* Notarize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notarize.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		059A0B5121905012004E1D89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		059A0B5221905012004E1D89 /* Notarize.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notarize.entitlements; sourceTree = "<group>"; };
+		059A0B5A2190504B004E1D89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		059A0B5C2190504B004E1D89 /* ApplicationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
+		059A0B60219050A3004E1D89 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		059A0B6321905107004E1D89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Notarize.MainWindowController.xib; sourceTree = "<group>"; };
+		059A0B6621905325004E1D89 /* Accounts.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Accounts.icns; sourceTree = "<group>"; };
+		059A0B6821905534004E1D89 /* AccountWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountWindowController.swift; sourceTree = "<group>"; };
+		059A0B6B2190554D004E1D89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Notarize.AccountWindowController.xib; sourceTree = "<group>"; };
+		05D7469121919DE7002CF085 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		05D7469321919F53002CF085 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		05D746B92191F0BB002CF085 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		05D746DF21922726002CF085 /* ALTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALTool.swift; sourceTree = "<group>"; };
+		05D746E1219230FC002CF085 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		05D746E42192315C002CF085 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Notarize.HistoryViewController.xib; sourceTree = "<group>"; };
+		05D746E621923630002CF085 /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
+		05D746E921924850002CF085 /* Release - ccache.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release - ccache.xcconfig"; sourceTree = "<group>"; };
+		05D746EA21924850002CF085 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		05D746EB21924850002CF085 /* Debug - ccache.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug - ccache.xcconfig"; sourceTree = "<group>"; };
+		05D746EC21924850002CF085 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		05D746ED21924850002CF085 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		05D746EE21924850002CF085 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		05D746F021924850002CF085 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
+		05D746F121924850002CF085 /* Architectures.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Architectures.xcconfig; sourceTree = "<group>"; };
+		05D746F321924850002CF085 /* Issues.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Issues.xcconfig; sourceTree = "<group>"; };
+		05D746F521924850002CF085 /* Apple-APIs.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apple-APIs.xcconfig"; sourceTree = "<group>"; };
+		05D746F621924850002CF085 /* Generic-Issues.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Generic-Issues.xcconfig"; sourceTree = "<group>"; };
+		05D746F721924850002CF085 /* Security.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Security.xcconfig; sourceTree = "<group>"; };
+		05D746F821924850002CF085 /* Objective-C.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Objective-C.xcconfig"; sourceTree = "<group>"; };
+		05D746F921924850002CF085 /* Analysis-Policy.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Analysis-Policy.xcconfig"; sourceTree = "<group>"; };
+		05D746FA21924850002CF085 /* Deployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		05D746FB21924850002CF085 /* Build-Options.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Build-Options.xcconfig"; sourceTree = "<group>"; };
+		05D746FC21924850002CF085 /* Swift-Compiler.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Swift-Compiler.xcconfig"; sourceTree = "<group>"; };
+		05D746FD21924850002CF085 /* Static-Analyzer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Static-Analyzer.xcconfig"; sourceTree = "<group>"; };
+		05D746FF21924850002CF085 /* Warnings-Policies.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Warnings-Policies.xcconfig"; sourceTree = "<group>"; };
+		05D7470021924850002CF085 /* Code-Generation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Code-Generation.xcconfig"; sourceTree = "<group>"; };
+		05D7470121924850002CF085 /* Language.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Language.xcconfig; sourceTree = "<group>"; };
+		05D7470221924850002CF085 /* General.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = General.xcconfig; sourceTree = "<group>"; };
+		05D7470321924850002CF085 /* Search-Paths.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Search-Paths.xcconfig"; sourceTree = "<group>"; };
+		05D7470421924850002CF085 /* Apple-LLVM.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apple-LLVM.xcconfig"; sourceTree = "<group>"; };
+		05D7470721924850002CF085 /* Modules.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Modules.xcconfig; sourceTree = "<group>"; };
+		05D7470821924850002CF085 /* Objective-C.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Objective-C.xcconfig"; sourceTree = "<group>"; };
+		05D7470921924850002CF085 /* C++.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "C++.xcconfig"; sourceTree = "<group>"; };
+		05D7470A21924850002CF085 /* Code-Generation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Code-Generation.xcconfig"; sourceTree = "<group>"; };
+		05D7470B21924850002CF085 /* Address-Sanitizer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Address-Sanitizer.xcconfig"; sourceTree = "<group>"; };
+		05D7470C21924850002CF085 /* Language.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Language.xcconfig; sourceTree = "<group>"; };
+		05D7470D21924850002CF085 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
+		05D7470E21924850002CF085 /* Undefined-Behavior-Sanitizer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Undefined-Behavior-Sanitizer.xcconfig"; sourceTree = "<group>"; };
+		05D7470F21924850002CF085 /* Warning-Policies.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Warning-Policies.xcconfig"; sourceTree = "<group>"; };
+		05D7471121924850002CF085 /* Objective-C-ARC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Objective-C-ARC.xcconfig"; sourceTree = "<group>"; };
+		05D7471221924850002CF085 /* Objective-C.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Objective-C.xcconfig"; sourceTree = "<group>"; };
+		05D7471321924850002CF085 /* C++.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "C++.xcconfig"; sourceTree = "<group>"; };
+		05D7471421924850002CF085 /* All-Languages.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "All-Languages.xcconfig"; sourceTree = "<group>"; };
+		05D7471521924850002CF085 /* Preprocessing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Preprocessing.xcconfig; sourceTree = "<group>"; };
+		05D7471621924850002CF085 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		05D7471821924850002CF085 /* ccache-config.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "ccache-config.sh"; sourceTree = "<group>"; };
+		05D7471921924850002CF085 /* ccache.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ccache.sh; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		059A0B4421905010004E1D89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		059A0B3E21905010004E1D89 = {
+			isa = PBXGroup;
+			children = (
+				05D746E821924850002CF085 /* xcconfig */,
+				059A0B4921905010004E1D89 /* Notarize */,
+				059A0B4821905010004E1D89 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		059A0B4821905010004E1D89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				059A0B4721905010004E1D89 /* Notarize.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		059A0B4921905010004E1D89 /* Notarize */ = {
+			isa = PBXGroup;
+			children = (
+				059A0B5B2190504B004E1D89 /* Classes */,
+				059A0B582190504B004E1D89 /* UI */,
+				059A0B5121905012004E1D89 /* Info.plist */,
+				059A0B5221905012004E1D89 /* Notarize.entitlements */,
+			);
+			path = Notarize;
+			sourceTree = "<group>";
+		};
+		059A0B582190504B004E1D89 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				059A0B6521905325004E1D89 /* Images */,
+				059A0B592190504B004E1D89 /* MainMenu.xib */,
+				059A0B6221905107004E1D89 /* Notarize.MainWindowController.xib */,
+				059A0B6A2190554D004E1D89 /* Notarize.AccountWindowController.xib */,
+				05D746E32192315C002CF085 /* Notarize.HistoryViewController.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		059A0B5B2190504B004E1D89 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				059A0B6821905534004E1D89 /* AccountWindowController.swift */,
+				059A0B5C2190504B004E1D89 /* ApplicationDelegate.swift */,
+				059A0B60219050A3004E1D89 /* MainWindowController.swift */,
+				05D746E1219230FC002CF085 /* HistoryViewController.swift */,
+				05D746E621923630002CF085 /* HistoryItem.swift */,
+				05D7469121919DE7002CF085 /* Preferences.swift */,
+				05D7469321919F53002CF085 /* Account.swift */,
+				05D746B92191F0BB002CF085 /* Keychain.swift */,
+				05D746DF21922726002CF085 /* ALTool.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		059A0B6521905325004E1D89 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				059A0B6621905325004E1D89 /* Accounts.icns */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		05D746E821924850002CF085 /* xcconfig */ = {
+			isa = PBXGroup;
+			children = (
+				05D746E921924850002CF085 /* Release - ccache.xcconfig */,
+				05D746EA21924850002CF085 /* Common.xcconfig */,
+				05D746EB21924850002CF085 /* Debug - ccache.xcconfig */,
+				05D746EC21924850002CF085 /* Debug.xcconfig */,
+				05D746ED21924850002CF085 /* Release.xcconfig */,
+				05D746EE21924850002CF085 /* README.md */,
+				05D746EF21924850002CF085 /* Common */,
+				05D7471621924850002CF085 /* .gitignore */,
+				05D7471721924850002CF085 /* Scripts */,
+			);
+			name = xcconfig;
+			path = Submodules/xcconfig;
+			sourceTree = "<group>";
+		};
+		05D746EF21924850002CF085 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				05D746F021924850002CF085 /* Signing.xcconfig */,
+				05D746F121924850002CF085 /* Architectures.xcconfig */,
+				05D746F221924850002CF085 /* Static-Analyzer */,
+				05D746FA21924850002CF085 /* Deployment.xcconfig */,
+				05D746FB21924850002CF085 /* Build-Options.xcconfig */,
+				05D746FC21924850002CF085 /* Swift-Compiler.xcconfig */,
+				05D746FD21924850002CF085 /* Static-Analyzer.xcconfig */,
+				05D746FE21924850002CF085 /* Swift-Compiler */,
+				05D7470321924850002CF085 /* Search-Paths.xcconfig */,
+				05D7470421924850002CF085 /* Apple-LLVM.xcconfig */,
+				05D7470521924850002CF085 /* Apple-LLVM */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		05D746F221924850002CF085 /* Static-Analyzer */ = {
+			isa = PBXGroup;
+			children = (
+				05D746F321924850002CF085 /* Issues.xcconfig */,
+				05D746F421924850002CF085 /* Issues */,
+			);
+			path = "Static-Analyzer";
+			sourceTree = "<group>";
+		};
+		05D746F421924850002CF085 /* Issues */ = {
+			isa = PBXGroup;
+			children = (
+				05D746F521924850002CF085 /* Apple-APIs.xcconfig */,
+				05D746F621924850002CF085 /* Generic-Issues.xcconfig */,
+				05D746F721924850002CF085 /* Security.xcconfig */,
+				05D746F821924850002CF085 /* Objective-C.xcconfig */,
+				05D746F921924850002CF085 /* Analysis-Policy.xcconfig */,
+			);
+			path = Issues;
+			sourceTree = "<group>";
+		};
+		05D746FE21924850002CF085 /* Swift-Compiler */ = {
+			isa = PBXGroup;
+			children = (
+				05D746FF21924850002CF085 /* Warnings-Policies.xcconfig */,
+				05D7470021924850002CF085 /* Code-Generation.xcconfig */,
+				05D7470121924850002CF085 /* Language.xcconfig */,
+				05D7470221924850002CF085 /* General.xcconfig */,
+			);
+			path = "Swift-Compiler";
+			sourceTree = "<group>";
+		};
+		05D7470521924850002CF085 /* Apple-LLVM */ = {
+			isa = PBXGroup;
+			children = (
+				05D7470621924850002CF085 /* Language */,
+				05D7470A21924850002CF085 /* Code-Generation.xcconfig */,
+				05D7470B21924850002CF085 /* Address-Sanitizer.xcconfig */,
+				05D7470C21924850002CF085 /* Language.xcconfig */,
+				05D7470D21924850002CF085 /* Warnings.xcconfig */,
+				05D7470E21924850002CF085 /* Undefined-Behavior-Sanitizer.xcconfig */,
+				05D7470F21924850002CF085 /* Warning-Policies.xcconfig */,
+				05D7471021924850002CF085 /* Warnings */,
+				05D7471521924850002CF085 /* Preprocessing.xcconfig */,
+			);
+			path = "Apple-LLVM";
+			sourceTree = "<group>";
+		};
+		05D7470621924850002CF085 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				05D7470721924850002CF085 /* Modules.xcconfig */,
+				05D7470821924850002CF085 /* Objective-C.xcconfig */,
+				05D7470921924850002CF085 /* C++.xcconfig */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
+		05D7471021924850002CF085 /* Warnings */ = {
+			isa = PBXGroup;
+			children = (
+				05D7471121924850002CF085 /* Objective-C-ARC.xcconfig */,
+				05D7471221924850002CF085 /* Objective-C.xcconfig */,
+				05D7471321924850002CF085 /* C++.xcconfig */,
+				05D7471421924850002CF085 /* All-Languages.xcconfig */,
+			);
+			path = Warnings;
+			sourceTree = "<group>";
+		};
+		05D7471721924850002CF085 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				05D7471821924850002CF085 /* ccache-config.sh */,
+				05D7471921924850002CF085 /* ccache.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		059A0B4621905010004E1D89 /* Notarize */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 059A0B5521905012004E1D89 /* Build configuration list for PBXNativeTarget "Notarize" */;
+			buildPhases = (
+				059A0B4321905010004E1D89 /* Sources */,
+				059A0B4421905010004E1D89 /* Frameworks */,
+				059A0B4521905010004E1D89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Notarize;
+			productName = Notarize;
+			productReference = 059A0B4721905010004E1D89 /* Notarize.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		059A0B3F21905010004E1D89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "XS-Labs";
+				TargetAttributes = {
+					059A0B4621905010004E1D89 = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 059A0B4221905010004E1D89 /* Build configuration list for PBXProject "Notarize" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 059A0B3E21905010004E1D89;
+			productRefGroup = 059A0B4821905010004E1D89 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				059A0B4621905010004E1D89 /* Notarize */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		059A0B4521905010004E1D89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				059A0B5D2190504B004E1D89 /* MainMenu.xib in Resources */,
+				05D746E52192315C002CF085 /* Notarize.HistoryViewController.xib in Resources */,
+				059A0B6C2190554D004E1D89 /* Notarize.AccountWindowController.xib in Resources */,
+				059A0B6421905107004E1D89 /* Notarize.MainWindowController.xib in Resources */,
+				059A0B6721905325004E1D89 /* Accounts.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		059A0B4321905010004E1D89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05D7469421919F53002CF085 /* Account.swift in Sources */,
+				059A0B61219050A3004E1D89 /* MainWindowController.swift in Sources */,
+				05D746E721923630002CF085 /* HistoryItem.swift in Sources */,
+				05D746E021922726002CF085 /* ALTool.swift in Sources */,
+				059A0B6921905534004E1D89 /* AccountWindowController.swift in Sources */,
+				05D7469221919DE7002CF085 /* Preferences.swift in Sources */,
+				059A0B5E2190504B004E1D89 /* ApplicationDelegate.swift in Sources */,
+				05D746BA2191F0BB002CF085 /* Keychain.swift in Sources */,
+				05D746E2219230FC002CF085 /* HistoryViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		059A0B592190504B004E1D89 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				059A0B5A2190504B004E1D89 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		059A0B6221905107004E1D89 /* Notarize.MainWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				059A0B6321905107004E1D89 /* Base */,
+			);
+			name = Notarize.MainWindowController.xib;
+			sourceTree = "<group>";
+		};
+		059A0B6A2190554D004E1D89 /* Notarize.AccountWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				059A0B6B2190554D004E1D89 /* Base */,
+			);
+			name = Notarize.AccountWindowController.xib;
+			sourceTree = "<group>";
+		};
+		05D746E32192315C002CF085 /* Notarize.HistoryViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05D746E42192315C002CF085 /* Base */,
+			);
+			name = Notarize.HistoryViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		059A0B5321905012004E1D89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05D746EC21924850002CF085 /* Debug.xcconfig */;
+			buildSettings = {
+				ENABLE_HARDENED_RUNTIME = YES;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		059A0B5421905012004E1D89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05D746ED21924850002CF085 /* Release.xcconfig */;
+			buildSettings = {
+				ENABLE_HARDENED_RUNTIME = YES;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		059A0B5621905012004E1D89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Notarize/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.Notarize";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		059A0B5721905012004E1D89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Notarize/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.Notarize";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		059A0B4221905010004E1D89 /* Build configuration list for PBXProject "Notarize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				059A0B5321905012004E1D89 /* Debug */,
+				059A0B5421905012004E1D89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		059A0B5521905012004E1D89 /* Build configuration list for PBXNativeTarget "Notarize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				059A0B5621905012004E1D89 /* Debug */,
+				059A0B5721905012004E1D89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 059A0B3F21905010004E1D89 /* Project object */;
+}
