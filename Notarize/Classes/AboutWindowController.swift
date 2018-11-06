@@ -24,37 +24,31 @@
 
 import Cocoa
 
-@NSApplicationMain class ApplicationDelegate: NSObject, NSApplicationDelegate
+@objc class AboutWindowController: NSWindowController
 {
-    private var mainWindowController:  MainWindowController?
-    private var aboutWindowController: AboutWindowController?
+    @objc private dynamic var name:      String?
+    @objc private dynamic var version:   String?
+    @objc private dynamic var copyright: String?
     
-    func applicationDidFinishLaunching( _ notification: Notification )
+    override var windowNibName: NSNib.Name?
     {
-        self.mainWindowController = MainWindowController()
+        return NSNib.Name( NSStringFromClass( type( of: self ) ) )
+    }
+    
+    override func windowDidLoad()
+    {
+        super.windowDidLoad()
         
-        self.mainWindowController?.window?.center()
-        self.mainWindowController?.window?.makeKeyAndOrderFront( nil )
-    }
-
-    func applicationWillTerminate( _ notification: Notification )
-    {}
-    
-    func applicationShouldTerminateAfterLastWindowClosed( _ sender: NSApplication ) -> Bool
-    {
-        return true
-    }
-    
-    @IBAction func showAboutWindow( _ sender: Any? )
-    {
-        if self.aboutWindowController == nil
+        self.window?.titlebarAppearsTransparent = true
+        self.window?.titleVisibility            = .hidden
+        
+        self.name      = Bundle.main.object( forInfoDictionaryKey: "CFBundleName"               ) as? String
+        self.version   = Bundle.main.object( forInfoDictionaryKey: "CFBundleShortVersionString" ) as? String
+        self.copyright = Bundle.main.object( forInfoDictionaryKey: "NSHumanReadableCopyright"   ) as? String
+        
+        if let rev = Bundle.main.object( forInfoDictionaryKey: "CFBundleVersion" ) as? String
         {
-            self.aboutWindowController = AboutWindowController()
-            
-            self.aboutWindowController?.window?.center()
+            self.version?.append( " (" + rev + ")" )
         }
-        
-        self.aboutWindowController?.window?.makeKeyAndOrderFront( sender )
     }
 }
-
