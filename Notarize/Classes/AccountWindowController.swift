@@ -29,6 +29,7 @@ class AccountWindowController: NSWindowController
     @objc public private( set ) dynamic var username        = ""
     @objc public private( set ) dynamic var password        = ""
     @objc public private( set ) dynamic var keepInKeychain  = false
+    @objc public private( set ) dynamic var loading         = false
     
     override var windowNibName: NSNib.Name?
     {
@@ -53,23 +54,36 @@ class AccountWindowController: NSWindowController
         
         let altool = ALTool( username: self.username, password: self.password )
         
-        do
+        self.loading = true
+        
+        DispatchQueue.global( qos: .userInitiated ).async
         {
-            try altool.checkPassword()
-        }
-        catch let e as NSError
-        {
-            self.displayAlert( error: e )
+            do
+            {
+                try altool.checkPassword()
+            }
+            catch let e as NSError
+            {
+                DispatchQueue.main.async
+                {
+                    self.loading = false
+                    
+                    self.displayAlert( error: e )
+                }
+                
+                return
+            }
             
-            return
+            DispatchQueue.main.async
+            {
+                guard let window = self.window else
+                {
+                    return
+                }
+                
+                self.window?.sheetParent?.endSheet( window, returnCode: .OK )
+            }
         }
-        
-        guard let window = self.window else
-        {
-            return
-        }
-        
-        self.window?.sheetParent?.endSheet( window, returnCode: .OK )
     }
     
     private func displayAlert( title: String, message: String )
