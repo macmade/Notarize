@@ -31,7 +31,7 @@ class ALTool
     
     class func isAvailable() -> Bool
     {
-        let out = ALTool.run( arguments: [ "--help" ] )
+        let out = try? ALTool.run( arguments: [ "--help" ] )
         
         return out?.count ?? 0 > 0
     }
@@ -42,14 +42,33 @@ class ALTool
         self.password = password
     }
     
-    func notarizationHistory() -> String?
+    func checkPassword() throws
     {
-        let out = ALTool.run( arguments: [ "--notarization-history", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
-        
-        return out?.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
+        do
+        {
+            let _ = try ALTool.run( arguments: [ "--notarization-history", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+        }
+        catch let e as NSError
+        {
+            throw e
+        }
     }
     
-    private class func run( arguments: [ String ] ) -> String?
+    func notarizationHistory() throws -> String?
+    {
+        do
+        {
+            let out = try ALTool.run( arguments: [ "--notarization-history", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+            
+            return out.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
+        }
+        catch let e as NSError
+        {
+            throw e
+        }
+    }
+    
+    private class func run( arguments: [ String ] ) throws -> String
     {
         var args = [ "altool" ]
         
@@ -65,16 +84,42 @@ class ALTool
         {
             try process.run()
         }
-        catch let e
+        catch let e as NSError
         {
             Swift.print( e )
-            return nil
+            
+            throw e
         }
         
         process.waitUntilExit()
         
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         
-        return String( bytes: data, encoding: .utf8 )
+        guard let out = String( bytes: data, encoding: .utf8 ) else
+        {
+            throw NSError( domain: NSCocoaErrorDomain, code: -1, userInfo: [ NSLocalizedDescriptionKey : "No data received from altool" ] )
+        }
+        
+        if let data = out.data( using: .utf8 )
+        {
+            if let dict = try? PropertyListSerialization.propertyList( from: data, options: [], format: nil ) as? NSDictionary
+            {
+                if let errors = dict?.object( forKey: "product-errors") as? NSArray
+                {
+                    if errors.count > 0
+                    {
+                        if let errorDict = errors.object( at: 0 ) as? NSDictionary
+                        {
+                            let code    = errorDict.object( forKey: "code" )    as? NSNumber ?? NSNumber( integerLiteral: 0 )
+                            let message = errorDict.object( forKey: "message" ) as? NSString ?? "Unknown error" as NSString
+                            
+                            throw NSError( domain: NSCocoaErrorDomain, code: code.intValue, userInfo: [ NSLocalizedDescriptionKey : "Error", NSLocalizedRecoverySuggestionErrorKey : message ] )
+                        }
+                    }
+                }
+            }
+        }
+        
+        return out
     }
 }

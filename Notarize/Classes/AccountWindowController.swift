@@ -37,12 +37,57 @@ class AccountWindowController: NSWindowController
     
     @IBAction func add( _ sender: Any? )
     {
+        if self.username.count == 0
+        {
+            self.displayAlert( title: "Empty username", message: "Please enter a valid username" )
+            
+            return
+        }
+        
+        if self.password.count == 0
+        {
+            self.displayAlert( title: "Empty password", message: "Please enter a valid password" )
+            
+            return
+        }
+        
+        let altool = ALTool( username: self.username, password: self.password )
+        
+        do
+        {
+            try altool.checkPassword()
+        }
+        catch let e as NSError
+        {
+            self.displayAlert( error: e )
+            
+            return
+        }
+        
         guard let window = self.window else
         {
             return
         }
         
         self.window?.sheetParent?.endSheet( window, returnCode: .OK )
+    }
+    
+    private func displayAlert( title: String, message: String )
+    {
+        let alert = NSAlert()
+        
+        alert.messageText     = title
+        alert.informativeText = message
+        
+        alert.addButton( withTitle: "OK" )
+        alert.runModal()
+    }
+    
+    private func displayAlert( error: NSError )
+    {
+        let alert = NSAlert( error: error )
+        
+        alert.runModal()
     }
     
     @IBAction func cancel( _ sender: Any? )

@@ -83,11 +83,11 @@ class HistoryViewController: NSViewController
             DispatchQueue.global( qos: .userInitiated ).async
             {
                 let altool  = ALTool( username: account.username, password: password )
-                let xml     = altool.notarizationHistory()
+                let xml     = try? altool.notarizationHistory()
                 
                 DispatchQueue.main.async
                 {
-                    if let xmlData = xml?.data( using: .utf8 )
+                    if let xmlData = xml??.data( using: .utf8 )
                     {
                         if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
                         {
