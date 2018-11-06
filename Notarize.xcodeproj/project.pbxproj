@@ -21,6 +21,7 @@
 		05D746E2219230FC002CF085 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D746E1219230FC002CF085 /* HistoryViewController.swift */; };
 		05D746E52192315C002CF085 /* Notarize.HistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05D746E32192315C002CF085 /* Notarize.HistoryViewController.xib */; };
 		05D746E721923630002CF085 /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D746E621923630002CF085 /* HistoryItem.swift */; };
+		05D7471B21924CA6002CF085 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 05D7471A21924CA6002CF085 /* Icon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		05D7471621924850002CF085 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		05D7471821924850002CF085 /* ccache-config.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "ccache-config.sh"; sourceTree = "<group>"; };
 		05D7471921924850002CF085 /* ccache.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ccache.sh; sourceTree = "<group>"; };
+		05D7471A21924CA6002CF085 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 		059A0B6521905325004E1D89 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				05D7471A21924CA6002CF085 /* Icon.icns */,
 				059A0B6621905325004E1D89 /* Accounts.icns */,
 			);
 			path = Images;
@@ -338,6 +341,7 @@
 				059A0B5D2190504B004E1D89 /* MainMenu.xib in Resources */,
 				05D746E52192315C002CF085 /* Notarize.HistoryViewController.xib in Resources */,
 				059A0B6C2190554D004E1D89 /* Notarize.AccountWindowController.xib in Resources */,
+				05D7471B21924CA6002CF085 /* Icon.icns in Resources */,
 				059A0B6421905107004E1D89 /* Notarize.MainWindowController.xib in Resources */,
 				059A0B6721905325004E1D89 /* Accounts.icns in Resources */,
 			);
