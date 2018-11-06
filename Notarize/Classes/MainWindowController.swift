@@ -70,14 +70,14 @@ class MainWindowController: NSWindowController
             if self.controllers[ account.username ] == nil
             {
                 self.controllers[ account.username ] = HistoryViewController( account: account )
+                
+                self.controllers[ account.username ]?.refresh( nil )
             }
             
             guard let controller = self.controllers[ account.username ] else
             {
                 return
             }
-            
-            controller.refresh( nil )
             
             controller.view.translatesAutoresizingMaskIntoConstraints = false
             
