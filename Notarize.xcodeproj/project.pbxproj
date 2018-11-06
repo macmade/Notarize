@@ -24,7 +24,46 @@
 		05D7471B21924CA6002CF085 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 05D7471A21924CA6002CF085 /* Icon.icns */; };
 		05D7471E21924D18002CF085 /* Notarize.AboutWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05D7471C21924D18002CF085 /* Notarize.AboutWindowController.xib */; };
 		05D7472021924D1F002CF085 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D7471F21924D1F002CF085 /* AboutWindowController.swift */; };
+		05E3745521925281000C6736 /* GitHubUpdates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3745121925277000C6736 /* GitHubUpdates.framework */; };
+		05E3745921925294000C6736 /* GitHubUpdates.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05E3745121925277000C6736 /* GitHubUpdates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		05E3745021925277000C6736 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05E3744B21925276000C6736 /* GitHubUpdates.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05F82B251EF32EA700EC8A93;
+			remoteInfo = GitHubUpdates;
+		};
+		05E3745221925277000C6736 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05E3744B21925276000C6736 /* GitHubUpdates.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0555EBA01EF3DDA10016167F;
+			remoteInfo = Relauncher;
+		};
+		05E3745621925286000C6736 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05E3744B21925276000C6736 /* GitHubUpdates.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 05F82B241EF32EA700EC8A93;
+			remoteInfo = GitHubUpdates;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		05E374582192528D000C6736 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				05E3745921925294000C6736 /* GitHubUpdates.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		059A0B4721905010004E1D89 /* Notarize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notarize.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +127,7 @@
 		05D7471A21924CA6002CF085 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		05D7471D21924D18002CF085 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Notarize.AboutWindowController.xib; sourceTree = "<group>"; };
 		05D7471F21924D1F002CF085 /* AboutWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
+		05E3744B21925276000C6736 /* GitHubUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitHubUpdates.xcodeproj; path = Submodules/GitHubUpdates/GitHubUpdates.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05E3745521925281000C6736 /* GitHubUpdates.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,9 +145,11 @@
 		059A0B3E21905010004E1D89 = {
 			isa = PBXGroup;
 			children = (
+				05E3744B21925276000C6736 /* GitHubUpdates.xcodeproj */,
 				05D746E821924850002CF085 /* xcconfig */,
 				059A0B4921905010004E1D89 /* Notarize */,
 				059A0B4821905010004E1D89 /* Products */,
+				05E3745421925281000C6736 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -281,6 +324,22 @@
 			path = Scripts;
 			sourceTree = "<group>";
 		};
+		05E3744C21925276000C6736 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05E3745121925277000C6736 /* GitHubUpdates.framework */,
+				05E3745321925277000C6736 /* Relauncher */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		05E3745421925281000C6736 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,10 +350,12 @@
 				059A0B4321905010004E1D89 /* Sources */,
 				059A0B4421905010004E1D89 /* Frameworks */,
 				059A0B4521905010004E1D89 /* Resources */,
+				05E374582192528D000C6736 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				05E3745721925286000C6736 /* PBXTargetDependency */,
 			);
 			name = Notarize;
 			productName = Notarize;
@@ -332,12 +393,35 @@
 			mainGroup = 059A0B3E21905010004E1D89;
 			productRefGroup = 059A0B4821905010004E1D89 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 05E3744C21925276000C6736 /* Products */;
+					ProjectRef = 05E3744B21925276000C6736 /* GitHubUpdates.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				059A0B4621905010004E1D89 /* Notarize */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		05E3745121925277000C6736 /* GitHubUpdates.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GitHubUpdates.framework;
+			remoteRef = 05E3745021925277000C6736 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05E3745321925277000C6736 /* Relauncher */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Relauncher;
+			remoteRef = 05E3745221925277000C6736 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		059A0B4521905010004E1D89 /* Resources */ = {
@@ -375,6 +459,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		05E3745721925286000C6736 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GitHubUpdates;
+			targetProxy = 05E3745621925286000C6736 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		059A0B592190504B004E1D89 /* MainMenu.xib */ = {
@@ -424,7 +516,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05D746EC21924850002CF085 /* Debug.xcconfig */;
 			buildSettings = {
-				ENABLE_HARDENED_RUNTIME = YES;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -433,7 +524,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05D746ED21924850002CF085 /* Release.xcconfig */;
 			buildSettings = {
-				ENABLE_HARDENED_RUNTIME = YES;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;

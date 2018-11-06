@@ -11,7 +11,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="ApplicationDelegate" customModule="Notarize" customModuleProvider="target"/>
+        <customObject id="Voe-Tx-rLC" customClass="ApplicationDelegate" customModule="Notarize" customModuleProvider="target">
+            <connections>
+                <outlet property="updater" destination="iuZ-Z2-Qg1" id="Sqm-a6-0cT"/>
+            </connections>
+        </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
@@ -26,6 +30,13 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
+                            <menuItem title="Check for Updates..." id="JU8-Ht-wf2">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="checkForUpdates:" target="iuZ-Z2-Qg1" id="Zqu-p5-aTB"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="ahe-Xg-6ft"/>
                             <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Services" id="NMo-om-nkz">
@@ -680,5 +691,11 @@
                 </menuItem>
             </items>
         </menu>
+        <customObject id="iuZ-Z2-Qg1" customClass="GitHubUpdater">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="user" value="macmade"/>
+                <userDefinedRuntimeAttribute type="string" keyPath="repository" value="Notarize"/>
+            </userDefinedRuntimeAttributes>
+        </customObject>
     </objects>
 </document>
