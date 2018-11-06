@@ -238,13 +238,37 @@
                                 <rect key="frame" x="201" y="0.0" width="799" height="500"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LaH-3W-s0y">
+                                        <rect key="frame" x="272" y="122" width="256" height="256"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="256" id="30m-Zb-xZi"/>
+                                            <constraint firstAttribute="height" constant="256" id="xSA-4x-iZN"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="jKf-XA-Mh4"/>
+                                        <connections>
+                                            <binding destination="-2" name="hidden" keyPath="self.controller" id="dbR-CV-hRo">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </imageView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="EvW-Vu-3hB">
                                         <rect key="frame" x="0.0" y="0.0" width="799" height="500"/>
+                                        <connections>
+                                            <binding destination="-2" name="hidden" keyPath="self.controller" id="2yG-pe-Lq0">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSIsNil</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </customView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="LaH-3W-s0y" firstAttribute="centerY" secondItem="rtG-3L-X4C" secondAttribute="centerY" id="4ov-yJ-7sQ"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="ZU7-rT-oxy"/>
                                     <constraint firstItem="EvW-Vu-3hB" firstAttribute="width" secondItem="rtG-3L-X4C" secondAttribute="width" id="dsC-uf-bbW"/>
+                                    <constraint firstItem="LaH-3W-s0y" firstAttribute="centerX" secondItem="rtG-3L-X4C" secondAttribute="centerX" id="eeb-VM-H0N"/>
                                     <constraint firstItem="EvW-Vu-3hB" firstAttribute="centerY" secondItem="rtG-3L-X4C" secondAttribute="centerY" id="hon-cH-2t7"/>
                                     <constraint firstItem="EvW-Vu-3hB" firstAttribute="height" secondItem="rtG-3L-X4C" secondAttribute="height" id="uo2-yj-sbh"/>
                                     <constraint firstItem="EvW-Vu-3hB" firstAttribute="centerX" secondItem="rtG-3L-X4C" secondAttribute="centerX" id="zd8-kM-dOt"/>

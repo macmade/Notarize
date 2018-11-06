@@ -33,6 +33,7 @@ class MainWindowController: NSWindowController
     private var observations: [ NSKeyValueObservation ]          = []
     private var controllers:  [ String : HistoryViewController ] = [ : ]
     
+    @objc private dynamic var controller:        HistoryViewController?
     @objc private dynamic var accounts:          [ Account ] = []
     @objc private dynamic var altoolIsAvailable: Bool        = true
     
@@ -57,6 +58,8 @@ class MainWindowController: NSWindowController
         {
             o, c in
             
+            self.controller = nil
+            
             self.historyViewContainer.subviews.forEach
             {
                 v in v.removeFromSuperview()
@@ -78,6 +81,8 @@ class MainWindowController: NSWindowController
             {
                 return
             }
+            
+            self.controller = controller
             
             controller.view.translatesAutoresizingMaskIntoConstraints = false
             
