@@ -17,17 +17,38 @@
             <rect key="frame" x="0.0" y="0.0" width="791" height="589"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="arN-Pa-Zux">
-                    <rect key="frame" x="380" y="279" width="32" height="32"/>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="y0e-GG-izO">
+                    <rect key="frame" x="0.0" y="0.0" width="791" height="589"/>
+                    <subviews>
+                        <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="arN-Pa-Zux">
+                            <rect key="frame" x="380" y="279" width="32" height="32"/>
+                            <connections>
+                                <binding destination="-2" name="animate" keyPath="loading" id="4Sy-Cj-3UZ"/>
+                            </connections>
+                        </progressIndicator>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ihm-Ui-xRh">
+                            <rect key="frame" x="290" y="242" width="211" height="17"/>
+                            <textFieldCell key="cell" lineBreakMode="clipping" title="Getting latest data... Please wait..." id="S2v-Df-W0w">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Ihm-Ui-xRh" firstAttribute="top" secondItem="arN-Pa-Zux" secondAttribute="bottom" constant="20" id="7kD-Uq-N5c"/>
+                        <constraint firstItem="arN-Pa-Zux" firstAttribute="centerX" secondItem="y0e-GG-izO" secondAttribute="centerX" id="BeE-eb-h98"/>
+                        <constraint firstItem="arN-Pa-Zux" firstAttribute="centerY" secondItem="y0e-GG-izO" secondAttribute="centerY" id="Sem-Gv-Qed"/>
+                        <constraint firstItem="Ihm-Ui-xRh" firstAttribute="centerX" secondItem="arN-Pa-Zux" secondAttribute="centerX" id="nTO-2y-uEP"/>
+                    </constraints>
                     <connections>
-                        <binding destination="-2" name="animate" keyPath="loading" id="4Sy-Cj-3UZ"/>
-                        <binding destination="-2" name="hidden" keyPath="loading" id="Pan-hL-O9h">
+                        <binding destination="-2" name="hidden" keyPath="loading" id="dhj-9N-E2A">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                             </dictionary>
                         </binding>
                     </connections>
-                </progressIndicator>
+                </customView>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfE-Rw-vXm">
                     <rect key="frame" x="0.0" y="0.0" width="791" height="589"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="jMg-EM-3u0">
@@ -259,17 +280,83 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                     <connections>
+                        <binding destination="-2" name="hidden2" keyPath="self.items" previousBinding="DZt-gS-AT9" id="7SZ-ux-Gh8">
+                            <dictionary key="options">
+                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                <integer key="NSNullPlaceholder" value="-1"/>
+                                <string key="NSValueTransformerName">Notarize.ArrayIsEmpty</string>
+                            </dictionary>
+                        </binding>
                         <binding destination="-2" name="hidden" keyPath="loading" id="DZt-gS-AT9"/>
                     </connections>
                 </scrollView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="4gW-Wz-KbZ">
+                    <rect key="frame" x="0.0" y="0.0" width="791" height="589"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Np-5q-xRo">
+                            <rect key="frame" x="287" y="443" width="217" height="36"/>
+                            <textFieldCell key="cell" lineBreakMode="clipping" title="No Data Available" id="WDl-1p-B7p">
+                                <font key="font" metaFont="systemThin" size="30"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qKQ-Pd-1H7">
+                            <rect key="frame" x="268" y="167" width="256" height="256"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="256" id="EFm-8K-mFN"/>
+                                <constraint firstAttribute="width" constant="256" id="dy3-Ix-Ru7"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="gLF-aJ-vlK"/>
+                        </imageView>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4GV-g7-iLV">
+                            <rect key="frame" x="342" y="119" width="107" height="32"/>
+                            <buttonCell key="cell" type="push" title="Refresh" bezelStyle="rounded" image="NSRefreshFreestandingTemplate" imagePosition="leading" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8Xy-jP-dKA">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="refresh:" target="-2" id="wFY-oR-M6L"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="3Np-5q-xRo" firstAttribute="centerX" secondItem="qKQ-Pd-1H7" secondAttribute="centerX" id="FD2-jE-SGr"/>
+                        <constraint firstItem="4GV-g7-iLV" firstAttribute="top" secondItem="qKQ-Pd-1H7" secondAttribute="bottom" constant="20" id="HSw-gS-95R"/>
+                        <constraint firstItem="qKQ-Pd-1H7" firstAttribute="centerX" secondItem="4gW-Wz-KbZ" secondAttribute="centerX" id="JCY-w7-n0I"/>
+                        <constraint firstItem="qKQ-Pd-1H7" firstAttribute="centerY" secondItem="4gW-Wz-KbZ" secondAttribute="centerY" id="Mgn-xM-4uG"/>
+                        <constraint firstItem="qKQ-Pd-1H7" firstAttribute="top" secondItem="3Np-5q-xRo" secondAttribute="bottom" constant="20" id="aaw-ST-kxf"/>
+                        <constraint firstItem="4GV-g7-iLV" firstAttribute="centerX" secondItem="qKQ-Pd-1H7" secondAttribute="centerX" id="vw9-CS-2lQ"/>
+                    </constraints>
+                    <connections>
+                        <binding destination="-2" name="hidden2" keyPath="self.items" previousBinding="xYW-br-j0Z" id="P4I-Ea-MOw">
+                            <dictionary key="options">
+                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                <integer key="NSNullPlaceholder" value="-1"/>
+                                <string key="NSValueTransformerName">Notarize.ArrayIsNotEmpty</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="hidden" keyPath="loading" id="xYW-br-j0Z"/>
+                    </connections>
+                </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="YfE-Rw-vXm" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="2AA-KP-qpA"/>
+                <constraint firstItem="y0e-GG-izO" firstAttribute="height" secondItem="c22-O7-iKe" secondAttribute="height" id="85b-vY-aAN"/>
                 <constraint firstItem="YfE-Rw-vXm" firstAttribute="height" secondItem="c22-O7-iKe" secondAttribute="height" id="D9R-3s-7Er"/>
+                <constraint firstItem="4gW-Wz-KbZ" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="JNR-aR-bQH"/>
                 <constraint firstItem="YfE-Rw-vXm" firstAttribute="width" secondItem="c22-O7-iKe" secondAttribute="width" id="RPG-qq-pLL"/>
+                <constraint firstItem="4gW-Wz-KbZ" firstAttribute="width" secondItem="c22-O7-iKe" secondAttribute="width" id="aWP-4w-t98"/>
+                <constraint firstItem="4gW-Wz-KbZ" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="bsR-hV-zQN"/>
+                <constraint firstItem="4gW-Wz-KbZ" firstAttribute="height" secondItem="c22-O7-iKe" secondAttribute="height" id="fOP-mC-eEj"/>
+                <constraint firstItem="y0e-GG-izO" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="jBd-TP-tQr"/>
+                <constraint firstItem="y0e-GG-izO" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="q1m-8K-XeG"/>
                 <constraint firstItem="YfE-Rw-vXm" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="wGP-sd-B5Z"/>
-                <constraint firstItem="arN-Pa-Zux" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="z6i-9p-mDM"/>
-                <constraint firstItem="arN-Pa-Zux" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="z9P-Vm-weM"/>
+                <constraint firstItem="y0e-GG-izO" firstAttribute="width" secondItem="c22-O7-iKe" secondAttribute="width" id="zd5-MY-JRk"/>
             </constraints>
             <point key="canvasLocation" x="75.5" y="79.5"/>
         </customView>
@@ -280,6 +367,8 @@
         </arrayController>
     </objects>
     <resources>
+        <image name="NSApplicationIcon" width="128" height="128"/>
+        <image name="NSRefreshFreestandingTemplate" width="14" height="14"/>
         <image name="NSStatusAvailable" width="16" height="16"/>
         <image name="NSStatusUnavailable" width="16" height="16"/>
     </resources>
