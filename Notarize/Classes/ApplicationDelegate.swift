@@ -36,7 +36,13 @@ import GitHubUpdates
     {
         self.mainWindowController = MainWindowController()
         
-        self.mainWindowController?.window?.center()
+        if Preferences.shared.lastStart == nil
+        {
+            self.mainWindowController?.window?.center()
+        }
+        
+        Preferences.shared.lastStart = Date()
+        
         self.mainWindowController?.window?.makeKeyAndOrderFront( nil )
         
         self.updater.checkForUpdatesInBackground()
