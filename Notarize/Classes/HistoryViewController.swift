@@ -33,12 +33,18 @@ class HistoryViewController: NSViewController
     @objc private dynamic var items      = [ HistoryItem ]()
     
     private var account: Account?
+    private var timer:   Timer?
     
     convenience init( account: Account )
     {
         self.init()
         
         self.account = account
+    }
+    
+    deinit
+    {
+        self.timer?.invalidate()
     }
     
     override var nibName: NSNib.Name?
@@ -53,19 +59,22 @@ class HistoryViewController: NSViewController
         self.itemsController.sortDescriptors = [ NSSortDescriptor( key: "date", ascending: false ) ]
         
         self.refresh( nil )
+        
+        self.timer = Timer.scheduledTimer( withTimeInterval: 5, repeats: true )
+        {
+            t in self.refresh( setLoadingStatus: false )
+        }
     }
     
     @IBAction func refresh( _ sender: Any? )
     {
+        self.refresh( setLoadingStatus: true )
+    }
+    
+    private func refresh( setLoadingStatus: Bool )
+    {
         DispatchQueue.main.async
         {
-            if self.refreshing
-            {
-                return
-            }
-            
-            self.refreshing = true
-            
             guard let account = self.account else
             {
                 return
@@ -76,9 +85,17 @@ class HistoryViewController: NSViewController
                 return
             }
             
-            self.itemsController.remove( contentsOf: self.items )
+            if self.refreshing
+            {
+                return
+            }
             
-            self.loading = true
+            self.refreshing = true
+            
+            if setLoadingStatus
+            {
+                self.loading = true
+            }
             
             DispatchQueue.global( qos: .userInitiated ).async
             {
@@ -91,6 +108,7 @@ class HistoryViewController: NSViewController
                     {
                         if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
                         {
+                            self.itemsController.remove( contentsOf: self.items )
                             self.itemsController.add( contentsOf: HistoryItem.ItemsFromDictionary( dict: history ) )
                         }
                     }
