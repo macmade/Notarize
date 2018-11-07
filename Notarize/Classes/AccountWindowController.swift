@@ -26,7 +26,7 @@ import Cocoa
 
 class AccountWindowController: NSWindowController
 {
-    @objc public private( set ) dynamic var username        = ""
+    @objc public                dynamic var username        = ""
     @objc public private( set ) dynamic var password        = ""
     @objc public private( set ) dynamic var keepInKeychain  = false
     @objc public private( set ) dynamic var loading         = false

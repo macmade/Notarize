@@ -34,6 +34,7 @@ class HistoryViewController: NSViewController
     
     private var account: Account?
     private var timer:   Timer?
+    private var add:     AccountWindowController?
     
     convenience init( account: Account )
     {
@@ -62,29 +63,19 @@ class HistoryViewController: NSViewController
         
         self.timer = Timer.scheduledTimer( withTimeInterval: 5, repeats: true )
         {
-            t in self.refresh( setLoadingStatus: false )
+            t in self.refresh( userInitiated: false )
         }
     }
     
     @IBAction func refresh( _ sender: Any? )
     {
-        self.refresh( setLoadingStatus: true )
+        self.refresh( userInitiated: true )
     }
     
-    private func refresh( setLoadingStatus: Bool )
+    private func refresh( userInitiated: Bool )
     {
         DispatchQueue.main.async
         {
-            guard let account = self.account else
-            {
-                return
-            }
-            
-            guard let password = account.password else
-            {
-                return
-            }
-            
             if self.refreshing
             {
                 return
@@ -92,7 +83,28 @@ class HistoryViewController: NSViewController
             
             self.refreshing = true
             
-            if setLoadingStatus
+            guard let account = self.account else
+            {
+                self.refreshing = false
+                self.loading    = false
+                
+                return
+            }
+            
+            guard let password = account.password else
+            {
+                if userInitiated
+                {
+                    self.askPassword()
+                }
+                
+                self.refreshing = false
+                self.loading    = false
+                
+                return
+            }
+            
+            if userInitiated
             {
                 self.loading = true
             }
@@ -117,6 +129,63 @@ class HistoryViewController: NSViewController
                     self.refreshing = false
                 }
             }
+        }
+    }
+    
+    private func askPassword()
+    {
+        if self.add != nil
+        {
+            return
+        }
+        
+        self.add = AccountWindowController()
+        
+        guard let add = self.add else
+        {
+            return
+        }
+        
+        guard let account = self.account else
+        {
+            return
+        }
+        
+        guard let sheet = add.window else
+        {
+            return
+        }
+        
+        add.username = account.username
+        
+        self.view.window?.beginSheet( sheet )
+        {
+            r in
+            
+            guard let add = self.add else
+            {
+                return
+            }
+            
+            self.add = nil
+            
+            if r != .OK
+            {
+                return
+            }
+            
+            if( add.username.count == 0 || add.password.count == 0 )
+            {
+                return
+            }
+            
+            let account = Account( username: add.username, password: add.password, useKeychain: add.keepInKeychain )
+            
+            Preferences.shared.addAccount( account );
+            
+            self.account = account
+            
+            self.refresh( nil )
         }
     }
 }
