@@ -1,0 +1,6 @@
+language: objective-c
+xcode_project: Notarize.xcodeproj
+xcode_scheme: Notarize
+osx_image: xcode10
+script:
+    - xcodebuild build -project Notarize.xcodeproj -scheme Notarize
