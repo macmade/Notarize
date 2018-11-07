@@ -30,6 +30,8 @@ import Cocoa
     @objc public private( set ) dynamic var password:    String?
     @objc public private( set ) dynamic var useKeychain: Bool
     
+    private static var sessionPasswords = [ String : String ]()
+    
     init( username: String, useKeychain: Bool )
     {
         self.username    = username
@@ -43,6 +45,11 @@ import Cocoa
         if useKeychain
         {
             self.password = Keychain( keychain: nil ).getPassword( service: bundleID, account: username )
+        }
+        
+        if let password = Account.sessionPasswords[ username ]
+        {
+            self.password = password
         }
     }
     
@@ -60,6 +67,10 @@ import Cocoa
         if useKeychain
         {
             let _ = Keychain( keychain: nil ).setPassword( service: bundleID, account: username, password: password )
+        }
+        else
+        {
+            Account.sessionPasswords[ username ] = password
         }
     }
 }
