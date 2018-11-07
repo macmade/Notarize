@@ -161,7 +161,30 @@ class MainWindowController: NSWindowController
             return
         }
         
-        Preferences.shared.removeAccount( account )
+        guard let window = self.window else
+        {
+            return
+        }
+        
+        let alert = NSAlert()
+        
+        alert.messageText     = "Delete Account"
+        alert.informativeText = "Are you sure you want to delete this account?"
+        
+        alert.addButton( withTitle: "Delete" )
+        alert.addButton( withTitle: "Cancel" )
+        
+        alert.beginSheetModal( for: window )
+        {
+            r in
+            
+            if r != .alertFirstButtonReturn
+            {
+                return
+            }
+            
+            Preferences.shared.removeAccount( account )
+        }
     }
 }
 
