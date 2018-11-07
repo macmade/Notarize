@@ -94,6 +94,8 @@ class MainWindowController: NSWindowController
         }
         
         self.observations.append( contentsOf: [ o1, o2 ] )
+        
+        self.accountsController.sortDescriptors = [ NSSortDescriptor( key: "username", ascending: true ) ]
     }
     
     @IBAction func refresh( _ sender: Any? )
