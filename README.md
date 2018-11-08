@@ -12,7 +12,7 @@ Notarize
 
 ### About
 
-Notarization status monitoring tool for macOS, supprting multiple developer accounts.
+Notarization status monitoring tool for macOS, supporting multiple developer accounts.
 
 ![Main Window](Assets/MainWindow.png "Main Window")
 
