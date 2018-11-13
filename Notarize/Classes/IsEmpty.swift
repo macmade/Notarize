@@ -1,7 +1,7 @@
 /*******************************************************************************
  * The MIT License (MIT)
  * 
- * Copyright (c) 2018 Jean-David Gadina - www.xs-labs.com
+ * Copyright (c) 2018 DigiDNA - www.imazing.com
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,25 +24,37 @@
 
 import Cocoa
 
-@objc public class ArrayIsEmpty: ValueTransformer
+class IsEmpty: ValueTransformer
 {
-    override public class func transformedValueClass() -> AnyClass
+    override class func transformedValueClass() -> AnyClass
     {
         return NSNumber.self
     }
     
-    override public class func allowsReverseTransformation() -> Bool
+    override class func allowsReverseTransformation() -> Bool
     {
         return false
     }
     
-    override public func transformedValue( _ value: Any? ) -> Any?
+    override func transformedValue( _ value: Any? ) -> Any?
     {
-        guard let array = value as? NSArray else
+        if let array = value as? NSArray
         {
-            return NSNumber( booleanLiteral: true )
+            return array.count == 0
+        }
+        else if let set = value as? NSSet
+        {
+            return set.count == 0
+        }
+        else if let dictionary = value as? NSDictionary
+        {
+            return dictionary.count == 0
+        }
+        else if let string = value as? String
+        {
+            return string.count == 0
         }
         
-        return NSNumber( booleanLiteral: array.count == 0 )
+        return true
     }
 }

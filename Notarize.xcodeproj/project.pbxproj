@@ -26,8 +26,8 @@
 		05D7472021924D1F002CF085 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D7471F21924D1F002CF085 /* AboutWindowController.swift */; };
 		05E3745521925281000C6736 /* GitHubUpdates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E3745121925277000C6736 /* GitHubUpdates.framework */; };
 		05E3745921925294000C6736 /* GitHubUpdates.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05E3745121925277000C6736 /* GitHubUpdates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		05E3745B219253B5000C6736 /* ArrayIsEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3745A219253B5000C6736 /* ArrayIsEmpty.swift */; };
-		05E3745D2192545A000C6736 /* ArrayIsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3745C2192545A000C6736 /* ArrayIsNotEmpty.swift */; };
+		05E3745B219253B5000C6736 /* IsEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3745A219253B5000C6736 /* IsEmpty.swift */; };
+		05E3745D2192545A000C6736 /* IsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3745C2192545A000C6736 /* IsNotEmpty.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,8 +130,8 @@
 		05D7471D21924D18002CF085 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Notarize.AboutWindowController.xib; sourceTree = "<group>"; };
 		05D7471F21924D1F002CF085 /* AboutWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
 		05E3744B21925276000C6736 /* GitHubUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitHubUpdates.xcodeproj; path = Submodules/GitHubUpdates/GitHubUpdates.xcodeproj; sourceTree = "<group>"; };
-		05E3745A219253B5000C6736 /* ArrayIsEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsEmpty.swift; sourceTree = "<group>"; };
-		05E3745C2192545A000C6736 /* ArrayIsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsNotEmpty.swift; sourceTree = "<group>"; };
+		05E3745A219253B5000C6736 /* IsEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsEmpty.swift; sourceTree = "<group>"; };
+		05E3745C2192545A000C6736 /* IsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsNotEmpty.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,8 +202,8 @@
 				05D746B92191F0BB002CF085 /* Keychain.swift */,
 				059A0B60219050A3004E1D89 /* MainWindowController.swift */,
 				05D7469121919DE7002CF085 /* Preferences.swift */,
-				05E3745A219253B5000C6736 /* ArrayIsEmpty.swift */,
-				05E3745C2192545A000C6736 /* ArrayIsNotEmpty.swift */,
+				05E3745A219253B5000C6736 /* IsEmpty.swift */,
+				05E3745C2192545A000C6736 /* IsNotEmpty.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -475,14 +475,14 @@
 				05D7469421919F53002CF085 /* Account.swift in Sources */,
 				05D7472021924D1F002CF085 /* AboutWindowController.swift in Sources */,
 				059A0B61219050A3004E1D89 /* MainWindowController.swift in Sources */,
-				05E3745D2192545A000C6736 /* ArrayIsNotEmpty.swift in Sources */,
+				05E3745D2192545A000C6736 /* IsNotEmpty.swift in Sources */,
 				05D746E721923630002CF085 /* HistoryItem.swift in Sources */,
 				05D746E021922726002CF085 /* ALTool.swift in Sources */,
 				059A0B6921905534004E1D89 /* AccountWindowController.swift in Sources */,
 				05D7469221919DE7002CF085 /* Preferences.swift in Sources */,
 				059A0B5E2190504B004E1D89 /* ApplicationDelegate.swift in Sources */,
 				05D746BA2191F0BB002CF085 /* Keychain.swift in Sources */,
-				05E3745B219253B5000C6736 /* ArrayIsEmpty.swift in Sources */,
+				05E3745B219253B5000C6736 /* IsEmpty.swift in Sources */,
 				05D746E2219230FC002CF085 /* HistoryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

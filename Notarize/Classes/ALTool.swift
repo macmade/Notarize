@@ -68,6 +68,20 @@ class ALTool
         }
     }
     
+    func notarizationInfo( for uuid: String ) throws -> String?
+    {
+        do
+        {
+            let out = try ALTool.run( arguments: [ "--notarization-info", uuid, "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+            
+            return out.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
+        }
+        catch let e as NSError
+        {
+            throw e
+        }
+    }
+    
     private class func run( arguments: [ String ] ) throws -> String
     {
         var args = [ "altool" ]

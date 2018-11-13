@@ -26,11 +26,12 @@ import Cocoa
 
 @objc class HistoryItem: NSObject
 {
-    @objc public var date:    NSDate
-    @objc public var uuid:    String
-    @objc public var success: Bool
-    @objc public var status:  Int
-    @objc public var message: String
+    @objc public dynamic var date:    NSDate
+    @objc public dynamic var uuid:    String
+    @objc public dynamic var success: Bool
+    @objc public dynamic var status:  Int
+    @objc public dynamic var message: String
+    @objc public dynamic var logURL:  String?
     
     class func ItemsFromDictionary( dict: NSDictionary? ) -> [ HistoryItem ]
     {
@@ -96,5 +97,20 @@ import Cocoa
         self.success = status == "success"
         self.status  = code.intValue
         self.message = message
+    }
+    
+    override func isEqual( _ object: Any? ) -> Bool
+    {
+        guard let o = object as? HistoryItem else
+        {
+            return false
+        }
+        
+        return self.uuid == o.uuid
+    }
+    
+    override var hash: Int
+    {
+        return self.uuid.hash
     }
 }

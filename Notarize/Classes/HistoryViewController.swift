@@ -24,17 +24,19 @@
 
 import Cocoa
 
-class HistoryViewController: NSViewController
+class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource
 {
     @IBOutlet private var itemsController: NSArrayController!
     
-    @objc private dynamic var loading    = true
-    @objc private dynamic var refreshing = false
-    @objc private dynamic var items      = [ HistoryItem ]()
+    @objc private dynamic var loading     = true
+    @objc private dynamic var refreshing  = false
+    @objc private dynamic var gettingInfo = false
+    @objc private dynamic var items       = Set< HistoryItem >()
     
-    private var account: Account?
-    private var timer:   Timer?
-    private var add:     AccountWindowController?
+    private var account:      Account?
+    private var refreshTimer: Timer?
+    private var infoTimer:    Timer?
+    private var add:          AccountWindowController?
     
     convenience init( account: Account )
     {
@@ -45,7 +47,8 @@ class HistoryViewController: NSViewController
     
     deinit
     {
-        self.timer?.invalidate()
+        self.refreshTimer?.invalidate()
+        self.infoTimer?.invalidate()
     }
     
     override var nibName: NSNib.Name?
@@ -61,15 +64,35 @@ class HistoryViewController: NSViewController
         
         self.refresh( nil )
         
-        self.timer = Timer.scheduledTimer( withTimeInterval: 5, repeats: true )
+        self.refreshTimer = Timer.scheduledTimer( withTimeInterval: 5, repeats: true )
         {
             t in self.refresh( userInitiated: false )
+        }
+        
+        self.infoTimer = Timer.scheduledTimer( withTimeInterval: 5, repeats: true )
+        {
+            t in self.getInfo()
         }
     }
     
     @IBAction func refresh( _ sender: Any? )
     {
         self.refresh( userInitiated: true )
+    }
+    
+    @IBAction func showInfo( _ sender: Any? )
+    {
+        guard let item = sender as? HistoryItem else
+        {
+            return
+        }
+        
+        guard let url = URL( string: item.logURL ?? "" ) else
+        {
+            return
+        }
+        
+        NSWorkspace.shared.open( url )
     }
     
     private func refresh( userInitiated: Bool )
@@ -111,22 +134,112 @@ class HistoryViewController: NSViewController
             
             DispatchQueue.global( qos: .userInitiated ).async
             {
-                let altool  = ALTool( username: account.username, password: password )
-                let xml     = try? altool.notarizationHistory()
+                let altool = ALTool( username: account.username, password: password )
+                let xml    = try? altool.notarizationHistory()
                 
-                DispatchQueue.main.async
+                if let xmlData = xml??.data( using: .utf8 )
                 {
-                    if let xmlData = xml??.data( using: .utf8 )
+                    if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
                     {
-                        if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
+                        let items = HistoryItem.ItemsFromDictionary( dict: history )
+                        
+                        DispatchQueue.main.async
                         {
-                            self.itemsController.remove( contentsOf: self.items )
-                            self.itemsController.add( contentsOf: HistoryItem.ItemsFromDictionary( dict: history ) )
+                            items.forEach
+                            {
+                                o in
+                                
+                                if self.items.contains( o ) == false
+                                {
+                                    self.items.insert( o )
+                                }
+                            }
                         }
                     }
+                }
                     
+                DispatchQueue.main.async
+                {
                     self.loading    = false
                     self.refreshing = false
+                }
+            }
+        }
+    }
+    
+    private func getInfo()
+    {
+        DispatchQueue.main.async
+        {
+            if self.gettingInfo
+            {
+                return
+            }
+            
+            self.gettingInfo = true
+            
+            DispatchQueue.global( qos: .userInitiated ).async
+            {
+                guard let account = self.account else
+                {
+                    return
+                }
+                
+                guard let password = account.password else
+                {
+                    return
+                }
+                
+                let items  = DispatchQueue.main.sync { return self.items }
+                let altool = ALTool( username: account.username, password: password )
+                let group  = DispatchGroup()
+                
+                for item in items.filter( { o in o.logURL == nil } )
+                {
+                    DispatchQueue.global( qos: .userInitiated ).async( group: group )
+                    {
+                        guard let xml = try? altool.notarizationInfo( for: item.uuid ) else
+                        {
+                            return
+                        }
+                        
+                        guard let xmlData = xml?.data( using: .utf8 ) else
+                        {
+                            return
+                        }
+                        
+                        guard let info = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary else
+                        {
+                            return
+                        }
+                        
+                        guard let plist = info else
+                        {
+                            return
+                        }
+                        
+                        guard let notarization = plist[ "notarization-info" ] as? NSDictionary else
+                        {
+                            return
+                        }
+                        
+                        guard let url = notarization[ "LogFileURL" ] as? String else
+                        {
+                            return
+                        }
+                        
+                        DispatchQueue.main.async
+                        {
+                            item.logURL = url
+                        }
+                    }
+                }
+                
+                group.wait()
+                       
+                DispatchQueue.main.async
+                {
+                    self.gettingInfo = false
                 }
             }
         }
