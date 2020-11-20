@@ -82,7 +82,8 @@ class MainWindowController: NSWindowController
                 return
             }
             
-            self.controller = controller
+            self.controller       = controller
+            controller.view.frame = self.historyViewContainer.bounds
             
             controller.view.translatesAutoresizingMaskIntoConstraints = false
             
