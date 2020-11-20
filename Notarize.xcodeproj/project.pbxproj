@@ -376,7 +376,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "XS-Labs";
 				TargetAttributes = {
 					059A0B4621905010004E1D89 = {
@@ -545,7 +545,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05D746EC21924850002CF085 /* Debug.xcconfig */;
 			buildSettings = {
-				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -553,7 +552,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05D746ED21924850002CF085 /* Release.xcconfig */;
 			buildSettings = {
-				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -565,6 +563,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.Notarize";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -578,6 +577,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.Notarize";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
