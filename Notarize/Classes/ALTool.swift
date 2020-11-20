@@ -118,7 +118,7 @@ class ALTool
         {
             if let dict = try? PropertyListSerialization.propertyList( from: data, options: [], format: nil ) as? NSDictionary
             {
-                if let errors = dict?.object( forKey: "product-errors") as? NSArray
+                if let errors = dict.object( forKey: "product-errors") as? NSArray
                 {
                     if errors.count > 0
                     {

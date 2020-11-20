@@ -137,7 +137,7 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                 let altool = ALTool( username: account.username, password: password )
                 let xml    = try? altool.notarizationHistory()
                 
-                if let xmlData = xml??.data( using: .utf8 )
+                if let xmlData = xml?.data( using: .utf8 )
                 {
                     if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
                     {
@@ -203,7 +203,7 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                             return
                         }
                         
-                        guard let xmlData = xml?.data( using: .utf8 ) else
+                        guard let xmlData = xml.data( using: .utf8 ) else
                         {
                             return
                         }
@@ -213,12 +213,7 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                             return
                         }
                         
-                        guard let plist = info else
-                        {
-                            return
-                        }
-                        
-                        guard let notarization = plist[ "notarization-info" ] as? NSDictionary else
+                        guard let notarization = info[ "notarization-info" ] as? NSDictionary else
                         {
                             return
                         }
