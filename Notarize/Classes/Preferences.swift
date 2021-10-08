@@ -85,7 +85,18 @@ import Cocoa
     {
         var accounts = self.accounts ?? [:]
         
-        accounts[ account.username ] = NSNumber( booleanLiteral: account.useKeychain )
+        if let name = account.providerShortName
+        {
+            accounts[ account.username ] =
+            [
+                "UseKeychain"       : NSNumber( booleanLiteral: account.useKeychain ),
+                "ProviderShortName" : name
+            ]
+        }
+        else
+        {
+            accounts[ account.username ] = NSNumber( booleanLiteral: account.useKeychain )
+        }
         
         self.accounts = accounts
     }
@@ -109,17 +120,31 @@ import Cocoa
     
     func getAccounts() -> [ Account ]
     {
-        return self.accounts?.compactMap
+        guard let accounts = self.accounts else
+        {
+            return []
+        }
+        
+        return accounts.compactMap
         {
             guard let username = $0.key as? String else
             {
                 return nil
             }
-             
-            let useKeychain = ( $0.value as? NSNumber )?.boolValue ?? false
             
-            return Account( username: username, useKeychain: useKeychain )
+            if let info = $0.value as? [ AnyHashable : Any ]
+            {
+                let useKeychain       = info[ "UseKeychain" ]       as? NSNumber
+                let providerShortName = info[ "ProviderShortName" ] as? String
+                
+                return Account( username: username, useKeychain: useKeychain?.boolValue ?? false, providerShortName: providerShortName )
+            }
+            else
+            {
+                let useKeychain = ( $0.value as? NSNumber )?.boolValue ?? false
+                
+                return Account( username: username, useKeychain: useKeychain, providerShortName: nil )
+            }
         }
-        ?? []
     }
 }

@@ -26,10 +26,11 @@ import Cocoa
 
 class AccountWindowController: NSWindowController
 {
-    @objc public                dynamic var username        = ""
-    @objc public private( set ) dynamic var password        = ""
-    @objc public private( set ) dynamic var keepInKeychain  = false
-    @objc public private( set ) dynamic var loading         = false
+    @objc public                dynamic var username          = ""
+    @objc public                dynamic var providerShortName = ""
+    @objc public private( set ) dynamic var password          = ""
+    @objc public private( set ) dynamic var keepInKeychain    = false
+    @objc public private( set ) dynamic var loading           = false
     
     override var windowNibName: NSNib.Name?
     {
@@ -52,7 +53,7 @@ class AccountWindowController: NSWindowController
             return
         }
         
-        let altool = ALTool( username: self.username, password: self.password )
+        let altool = ALTool( username: self.username, password: self.password, providerShortName: self.providerShortName.count > 0 ? self.providerShortName : nil )
         
         self.loading = true
         

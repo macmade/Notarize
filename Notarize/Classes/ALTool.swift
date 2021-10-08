@@ -26,8 +26,9 @@ import Foundation
 
 class ALTool
 {
-    private var username: String
-    private var password: String
+    private var username:          String
+    private var password:          String
+    private var providerShortName: String?
     
     class func isAvailable() -> Bool
     {
@@ -39,29 +40,48 @@ class ALTool
         return out.stdout.count > 0 || out.stderr.count > 0
     }
     
-    init( username: String, password: String )
+    init( username: String, password: String, providerShortName: String? )
     {
-        self.username = username
-        self.password = password
+        self.username          = username
+        self.password          = password
+        self.providerShortName = providerShortName
     }
     
     func checkPassword() throws
     {
-        let _ = try ALTool.run( arguments: [ "--notarization-history", "0", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+        let _ = try ALTool.run( arguments: self.arguments( [ "--notarization-history", "0" ] ) + [ "--output-format", "xml" ] )
     }
     
     func notarizationHistory( page: Int64 ) throws -> String?
     {
-        let out = try ALTool.run( arguments: [ "--notarization-history", "\( page )", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+        let out = try ALTool.run( arguments: self.arguments( [ "--notarization-history", "\( page )" ] ) + [ "--output-format", "xml" ] )
         
         return out.stdout.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
     }
     
     func notarizationInfo( for uuid: String ) throws -> String?
     {
-        let out = try ALTool.run( arguments: [ "--notarization-info", uuid, "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+        let out = try ALTool.run( arguments: self.arguments( [ "--notarization-info", uuid ] ) + [ "--output-format", "xml" ] )
         
         return out.stdout.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
+    }
+    
+    private func arguments( _ arguments: [ String ] ) -> [ String ]
+    {
+        var arguments = arguments
+        
+        arguments.append( "-u" )
+        arguments.append( self.username )
+        arguments.append( "-p" )
+        arguments.append( self.password )
+        
+        if let name = self.providerShortName
+        {
+            arguments.append( "--asc-provider" )
+            arguments.append( name )
+        }
+        
+        return arguments
     }
     
     private class var executablePath: String?

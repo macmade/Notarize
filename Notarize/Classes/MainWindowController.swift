@@ -146,7 +146,7 @@ class MainWindowController: NSWindowController
                 return
             }
             
-            let account = Account( username: add.username, password: add.password, useKeychain: add.keepInKeychain )
+            let account = Account( username: add.username, password: add.password, useKeychain: add.keepInKeychain, providerShortName: add.providerShortName.count > 0 ? add.providerShortName : nil )
             
             Preferences.shared.addAccount( account );
         }

@@ -26,16 +26,18 @@ import Cocoa
 
 @objc class Account: NSObject
 {
-    @objc public private( set ) dynamic var username:    String
-    @objc public private( set ) dynamic var password:    String?
-    @objc public private( set ) dynamic var useKeychain: Bool
+    @objc public private( set ) dynamic var username:          String
+    @objc public private( set ) dynamic var password:          String?
+    @objc public private( set ) dynamic var providerShortName: String?
+    @objc public private( set ) dynamic var useKeychain:       Bool
     
     private static var sessionPasswords = [ String : String ]()
     
-    init( username: String, useKeychain: Bool )
+    init( username: String, useKeychain: Bool, providerShortName: String? )
     {
-        self.username    = username
-        self.useKeychain = useKeychain
+        self.username          = username
+        self.useKeychain       = useKeychain
+        self.providerShortName = providerShortName
         
         guard let bundleID = Bundle.main.bundleIdentifier else
         {
@@ -53,11 +55,12 @@ import Cocoa
         }
     }
     
-    init( username: String, password: String, useKeychain: Bool )
+    init( username: String, password: String, useKeychain: Bool, providerShortName: String? )
     {
-        self.username    = username
-        self.password    = password
-        self.useKeychain = useKeychain
+        self.username          = username
+        self.password          = password
+        self.useKeychain       = useKeychain
+        self.providerShortName = providerShortName
         
         guard let bundleID = Bundle.main.bundleIdentifier else
         {

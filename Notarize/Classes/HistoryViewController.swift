@@ -133,7 +133,7 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             {
                 do
                 {
-                    let items = try self.loadHistory( username: account.username, password: password )
+                    let items = try self.loadHistory( username: account.username, password: password, providerShortName: account.providerShortName )
                     
                     DispatchQueue.main.async
                     {
@@ -181,10 +181,10 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         }
     }
     
-    private func loadHistory( username: String, password: String ) throws -> [ HistoryItem ]
+    private func loadHistory( username: String, password: String, providerShortName: String? ) throws -> [ HistoryItem ]
     {
         var items  = [ HistoryItem ]()
-        let altool = ALTool( username: username, password: password )
+        let altool = ALTool( username: username, password: password, providerShortName: providerShortName )
         var page   = Int64( 0 )
         
         repeat
@@ -233,7 +233,7 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                 }
                 
                 let items  = DispatchQueue.main.sync { return self.items }
-                let altool = ALTool( username: account.username, password: password )
+                let altool = ALTool( username: account.username, password: password, providerShortName: account.providerShortName )
                 let group  = DispatchGroup()
                 
                 items.filter( { o in o.logURL == nil } ).forEach
@@ -283,7 +283,8 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             return
         }
         
-        add.username = account.username
+        add.username          = account.username
+        add.providerShortName = account.providerShortName ?? ""
         
         self.view.window?.beginSheet( sheet )
         {
@@ -306,7 +307,7 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                 return
             }
             
-            let account = Account( username: add.username, password: add.password, useKeychain: add.keepInKeychain )
+            let account = Account( username: add.username, password: add.password, useKeychain: add.keepInKeychain, providerShortName: add.providerShortName.count > 0 ? add.providerShortName : nil )
             
             Preferences.shared.addAccount( account );
             
