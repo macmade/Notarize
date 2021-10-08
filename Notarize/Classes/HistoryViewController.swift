@@ -134,35 +134,22 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             
             DispatchQueue.global( qos: .userInitiated ).async
             {
-                let altool = ALTool( username: account.username, password: password )
-                
                 do
                 {
-                    let xml = try altool.notarizationHistory()
-                        
-                    if let xmlData = xml?.data( using: .utf8 )
-                    {
-                        if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
-                        {
-                            let items = HistoryItem.ItemsFromDictionary( dict: history )
-                            
-                            DispatchQueue.main.async
-                            {
-                                items.forEach
-                                {
-                                    o in
-                                    
-                                    if self.items.contains( o ) == false
-                                    {
-                                        self.items.insert( o )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                        
+                    let items = try self.loadHistory( username: account.username, password: password )
+                    
                     DispatchQueue.main.async
                     {
+                        items.forEach
+                        {
+                            o in
+                            
+                            if self.items.contains( o ) == false
+                            {
+                                self.items.insert( o )
+                            }
+                        }
+                        
                         self.loading    = false
                         self.refreshing = false
                     }
@@ -195,6 +182,37 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                 }
             }
         }
+    }
+    
+    private func loadHistory( username: String, password: String ) throws -> [ HistoryItem ]
+    {
+        var items  = [ HistoryItem ]()
+        let altool = ALTool( username: username, password: password )
+        var page   = Int64( 0 )
+        
+        repeat
+        {
+            let xml = try altool.notarizationHistory( page: page )
+            page    = -1
+            
+            if let xmlData = xml?.data( using: .utf8 )
+            {
+                if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
+                {
+                    let current = HistoryItem.ItemsFromDictionary( dict: history )
+                    
+                    items.append( contentsOf: current )
+                    
+                    if current.count > 0, let history = history.object( forKey: "notarization-history" ) as? NSDictionary, let next = history.object( forKey: "next-page" ) as? Int64
+                    {
+                        page = next
+                    }
+                }
+            }
+        }
+        while page >= 0
+        
+        return items
     }
     
     private func getInfo()

@@ -50,9 +50,9 @@ class ALTool
         let _ = try ALTool.run( arguments: [ "--notarization-history", "0", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
     }
     
-    func notarizationHistory() throws -> String?
+    func notarizationHistory( page: Int64 ) throws -> String?
     {
-        let out = try ALTool.run( arguments: [ "--notarization-history", "0", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+        let out = try ALTool.run( arguments: [ "--notarization-history", "\( page )", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
         
         return out.stdout.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
     }
