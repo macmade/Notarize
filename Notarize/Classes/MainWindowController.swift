@@ -101,12 +101,9 @@ class MainWindowController: NSWindowController
     
     @IBAction func refresh( _ sender: Any? )
     {
-        guard let account = self.accountsController.selectedObjects.first as? Account else
-        {
-            return
-        }
-        
-        guard let controller = self.controllers[ account.username ] else
+        guard let account    = self.accountsController.selectedObjects.first as? Account,
+              let controller = self.controllers[ account.username ]
+        else
         {
             return
         }
@@ -157,12 +154,9 @@ class MainWindowController: NSWindowController
     
     @IBAction func removeAccount( _ sender: Any? )
     {
-        guard let account = self.accountsController.selectedObjects.first as? Account else
-        {
-            return
-        }
-        
-        guard let window = self.window else
+        guard let account = self.accountsController.selectedObjects.first as? Account,
+              let window = self.window
+        else
         {
             return
         }

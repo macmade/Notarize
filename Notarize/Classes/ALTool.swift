@@ -135,25 +135,22 @@ class ALTool
         
         if let data = out.data( using: .utf8 )
         {
-            if let dict = try? PropertyListSerialization.propertyList( from: data, options: [], format: nil ) as? NSDictionary
+            if let dict = try? PropertyListSerialization.propertyList( from: data, options: [], format: nil ) as? [ AnyHashable : Any ]
             {
-                if let errors = dict.object( forKey: "product-errors") as? NSArray
+                if let errors = dict[ "product-errors" ] as? [ Any ]
                 {
-                    if errors.count > 0
+                    if errors.count > 0, let errorDict = errors[ 0 ] as? [ AnyHashable : Any ]
                     {
-                        if let errorDict = errors.object( at: 0 ) as? NSDictionary
+                        let code    = errorDict[ "code"    ] as? NSNumber ?? NSNumber( integerLiteral: 0 )
+                        let message = errorDict[ "message" ] as? String   ?? "Unknown error"
+                        
+                        if let info = errorDict[ "userInfo" ] as? [ AnyHashable : Any ], let failure = info[ "NSLocalizedFailureReason" ] as? String
                         {
-                            let code    = errorDict.object( forKey: "code" )    as? NSNumber ?? NSNumber( integerLiteral: 0 )
-                            let message = errorDict.object( forKey: "message" ) as? NSString ?? "Unknown error" as NSString
-                            
-                            if let info = errorDict.object( forKey: "userInfo" ) as? NSDictionary, let failure = info.object( forKey: "NSLocalizedFailureReason" ) as? NSString
-                            {
-                                throw NSError( domain: NSCocoaErrorDomain, code: code.intValue, userInfo: [ NSLocalizedDescriptionKey : message, NSLocalizedRecoverySuggestionErrorKey : failure ] )
-                            }
-                            else
-                            {
-                                throw NSError( domain: NSCocoaErrorDomain, code: code.intValue, userInfo: [ NSLocalizedDescriptionKey : "Error", NSLocalizedRecoverySuggestionErrorKey : message ] )
-                            }
+                            throw NSError( domain: NSCocoaErrorDomain, code: code.intValue, userInfo: [ NSLocalizedDescriptionKey : message, NSLocalizedRecoverySuggestionErrorKey : failure ] )
+                        }
+                        else
+                        {
+                            throw NSError( domain: NSCocoaErrorDomain, code: code.intValue, userInfo: [ NSLocalizedDescriptionKey : "Error", NSLocalizedRecoverySuggestionErrorKey : message ] )
                         }
                     }
                 }

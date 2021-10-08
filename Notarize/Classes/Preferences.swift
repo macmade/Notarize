@@ -27,7 +27,7 @@ import Cocoa
 @objc public class Preferences: NSObject
 {
     @objc public dynamic var lastStart: Date?
-    @objc public dynamic var accounts:  NSDictionary?
+    @objc public dynamic var accounts:  [ AnyHashable : Any ]?
     
     @objc public static let shared = Preferences()
     
@@ -83,42 +83,42 @@ import Cocoa
     
     func addAccount( _ account: Account )
     {
-        let accounts = self.accounts?.mutableCopy() as? NSMutableDictionary ?? NSMutableDictionary()
+        var accounts = self.accounts ?? [:]
         
-        accounts.setObject( NSNumber( booleanLiteral: account.useKeychain ), forKey: account.username as NSString )
+        accounts[ account.username ] = NSNumber( booleanLiteral: account.useKeychain )
         
-        self.accounts = accounts.copy() as? NSDictionary
+        self.accounts = accounts
     }
     
     func removeAccount( _ account: Account )
     {
-        guard let accounts = self.accounts?.mutableCopy() as? NSMutableDictionary else
+        guard var accounts = self.accounts else
         {
             return
         }
         
-        accounts.removeObject( forKey: account.username as NSString )
+        accounts.removeValue( forKey: account.username )
         
         if account.useKeychain, let bundleID = Bundle.main.bundleIdentifier
         {
             let _ = Keychain( keychain: nil ).delete( service: bundleID, account: account.username )
         }
         
-        self.accounts = accounts.copy() as? NSDictionary
+        self.accounts = accounts
     }
     
     func getAccounts() -> [ Account ]
     {
         var accounts = [ Account ]()
         
-        for account in self.accounts ?? [ : ]
+        self.accounts?.forEach
         {
-            guard let username = account.key as? String else
+            guard let username = $0.key as? String else
             {
-                continue
+                return
             }
              
-            let useKeychain = ( account.value as? NSNumber )?.boolValue ?? false
+            let useKeychain = ( $0.value as? NSNumber )?.boolValue ?? false
             
             accounts.append( Account( username: username, useKeychain: useKeychain ) )
         }

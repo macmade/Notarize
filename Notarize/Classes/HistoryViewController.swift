@@ -82,12 +82,9 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     
     @IBAction func showInfo( _ sender: Any? )
     {
-        guard let item = sender as? HistoryItem else
-        {
-            return
-        }
-        
-        guard let url = URL( string: item.logURL ?? "" ) else
+        guard let item = sender as? HistoryItem,
+              let url  = URL( string: item.logURL ?? "" )
+        else
         {
             return
         }
@@ -197,13 +194,13 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             
             if let xmlData = xml?.data( using: .utf8 )
             {
-                if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
+                if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? [ AnyHashable : Any ]
                 {
                     let current = HistoryItem.ItemsFromDictionary( dict: history )
                     
                     items.append( contentsOf: current )
                     
-                    if current.count > 0, let history = history.object( forKey: "notarization-history" ) as? NSDictionary, let next = history.object( forKey: "next-page" ) as? Int64
+                    if current.count > 0, let history = history[ "notarization-history" ] as? [ AnyHashable : Any ], let next = history[ "next-page" ] as? Int64
                     {
                         page = next
                     }
@@ -228,12 +225,9 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             
             DispatchQueue.global( qos: .userInitiated ).async
             {
-                guard let account = self.account else
-                {
-                    return
-                }
-                
-                guard let password = account.password else
+                guard let account  = self.account,
+                      let password = account.password
+                else
                 {
                     return
                 }
@@ -246,27 +240,11 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                 {
                     DispatchQueue.global( qos: .userInitiated ).async( group: group )
                     {
-                        guard let xml = try? altool.notarizationInfo( for: item.uuid ) else
-                        {
-                            return
-                        }
-                        
-                        guard let xmlData = xml.data( using: .utf8 ) else
-                        {
-                            return
-                        }
-                        
-                        guard let info = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary else
-                        {
-                            return
-                        }
-                        
-                        guard let notarization = info[ "notarization-info" ] as? NSDictionary else
-                        {
-                            return
-                        }
-                        
-                        guard let url = notarization[ "LogFileURL" ] as? String else
+                        guard let xml          = try? altool.notarizationInfo( for: item.uuid ),
+                              let xmlData      = xml.data( using: .utf8 ),
+                              let info         = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? [ AnyHashable : Any ],
+                              let notarization = info[ "notarization-info" ]                                                            as? [ AnyHashable : Any ],
+                              let url          = notarization[ "LogFileURL" ]                                                           as? String else
                         {
                             return
                         }
@@ -297,17 +275,10 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         
         self.add = AccountWindowController()
         
-        guard let add = self.add else
-        {
-            return
-        }
-        
-        guard let account = self.account else
-        {
-            return
-        }
-        
-        guard let sheet = add.window else
+        guard let add     = self.add,
+              let account = self.account,
+              let sheet   = add.window
+        else
         {
             return
         }

@@ -26,68 +26,40 @@ import Cocoa
 
 @objc class HistoryItem: NSObject
 {
-    @objc public dynamic var date:    NSDate
+    @objc public dynamic var date:    Date
     @objc public dynamic var uuid:    String
     @objc public dynamic var success: Bool
     @objc public dynamic var status:  Int
     @objc public dynamic var message: String
     @objc public dynamic var logURL:  String?
     
-    class func ItemsFromDictionary( dict: NSDictionary? ) -> [ HistoryItem ]
+    class func ItemsFromDictionary( dict: [ AnyHashable : Any ]? ) -> [ HistoryItem ]
     {
-        guard let history = dict?.object( forKey: "notarization-history" ) as? NSDictionary else
+        guard let history = dict?[ "notarization-history" ] as? [ AnyHashable : Any ],
+              let items   = history[ "items" ]              as? [ Any ]
+        else
         {
             return []
         }
         
-        guard let items = history.object( forKey: "items" ) as? NSArray else
+        return items.compactMap
         {
-            return []
+            $0 as? [ AnyHashable : Any ]
         }
-        
-        var objects = [ HistoryItem ]()
-        
-        for o in items
+        .compactMap
         {
-            guard let item = o as? NSDictionary else
-            {
-                continue
-            }
-            
-            guard let historyItem = HistoryItem( dict: item ) else
-            {
-                continue
-            }
-            
-            objects.append( historyItem )
+            HistoryItem( dict: $0 )
         }
-        
-        return objects
     }
     
-    init?( dict: NSDictionary )
+    init?( dict: [ AnyHashable : Any ] )
     {
-        guard let date = dict.object( forKey: "Date" ) as? NSDate else
-        {
-            return nil
-        }
-        
-        guard let uuid = dict.object( forKey: "RequestUUID" ) as? String else
-        {
-            return nil
-        }
-        
-        guard let status = dict.object( forKey: "Status" ) as? String else
-        {
-            return nil
-        }
-        
-        guard let code = dict.object( forKey: "Status Code" ) as? NSNumber else
-        {
-            return nil
-        }
-        
-        guard let message = dict.object( forKey: "Status Message" ) as? String else
+        guard let date    = dict[ "Date" ]           as? Date,
+              let uuid    = dict[ "RequestUUID" ]    as? String,
+              let status  = dict[ "Status" ]         as? String,
+              let code    = dict[ "Status Code" ]    as? NSNumber,
+              let message = dict[ "Status Message" ] as? String
+            else
         {
             return nil
         }
