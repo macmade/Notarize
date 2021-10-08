@@ -236,9 +236,9 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                 let altool = ALTool( username: account.username, password: password )
                 let group  = DispatchGroup()
                 
-                for item in items.filter( { o in o.logURL == nil } )
+                items.filter( { o in o.logURL == nil } ).forEach
                 {
-                    DispatchQueue.global( qos: .userInitiated ).async( group: group )
+                    item in DispatchQueue.global( qos: .userInitiated ).async( group: group )
                     {
                         guard let xml          = try? altool.notarizationInfo( for: item.uuid ),
                               let xmlData      = xml.data( using: .utf8 ),

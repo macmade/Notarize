@@ -109,20 +109,17 @@ import Cocoa
     
     func getAccounts() -> [ Account ]
     {
-        var accounts = [ Account ]()
-        
-        self.accounts?.forEach
+        return self.accounts?.compactMap
         {
             guard let username = $0.key as? String else
             {
-                return
+                return nil
             }
              
             let useKeychain = ( $0.value as? NSNumber )?.boolValue ?? false
             
-            accounts.append( Account( username: username, useKeychain: useKeychain ) )
+            return Account( username: username, useKeychain: useKeychain )
         }
-        
-        return accounts
+        ?? []
     }
 }
