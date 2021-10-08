@@ -31,9 +31,12 @@ class ALTool
     
     class func isAvailable() -> Bool
     {
-        let out = try? ALTool.run( arguments: [ "--help" ] )
+        guard let out = try? ALTool.run( arguments: [ "--help" ] ) else
+        {
+            return false
+        }
         
-        return out?.count ?? 0 > 0
+        return out.stdout.count > 0 || out.stderr.count > 0
     }
     
     init( username: String, password: String )
@@ -44,55 +47,68 @@ class ALTool
     
     func checkPassword() throws
     {
-        do
-        {
-            let _ = try ALTool.run( arguments: [ "--notarization-history", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
-        }
-        catch let e as NSError
-        {
-            throw e
-        }
+        let _ = try ALTool.run( arguments: [ "--notarization-history", "0", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
     }
     
     func notarizationHistory() throws -> String?
     {
-        do
-        {
-            let out = try ALTool.run( arguments: [ "--notarization-history", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
-            
-            return out.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
-        }
-        catch let e as NSError
-        {
-            throw e
-        }
+        let out = try ALTool.run( arguments: [ "--notarization-history", "0", "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+        
+        return out.stdout.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
     }
     
     func notarizationInfo( for uuid: String ) throws -> String?
     {
-        do
-        {
-            let out = try ALTool.run( arguments: [ "--notarization-info", uuid, "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
-            
-            return out.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
-        }
-        catch let e as NSError
-        {
-            throw e
-        }
+        let out = try ALTool.run( arguments: [ "--notarization-info", uuid, "-u", self.username, "-p", self.password, "--output-format", "xml" ] )
+        
+        return out.stdout.trimmingCharacters( in: NSCharacterSet.whitespacesAndNewlines )
     }
     
-    private class func run( arguments: [ String ] ) throws -> String
+    private class var executablePath: String?
     {
-        var args = [ "altool" ]
-        
-        args.append( contentsOf: arguments )
-        
         let pipe               = Pipe()
         let process            = Process()
         process.launchPath     = "/usr/bin/xcrun"
-        process.arguments      = args
+        process.arguments      = [ "-f", "altool" ]
         process.standardOutput = pipe
+        
+        do
+        {
+            try process.run()
+        }
+        catch let e as NSError
+        {
+            Swift.print( e )
+            
+            return nil
+        }
+        
+        process.waitUntilExit()
+        
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        
+        guard let out = String( bytes: data, encoding: .utf8 ) else
+        {
+            return nil
+        }
+        
+        return out.trimmingCharacters( in: .whitespacesAndNewlines )
+    }
+    
+    private class func run( arguments: [ String ] ) throws -> ( stdout: String, stderr: String )
+    {
+        guard let exec = ALTool.executablePath else
+        {
+            throw NSError( domain: NSCocoaErrorDomain, code: -1, userInfo: [ NSLocalizedDescriptionKey : "altool executable not found" ] )
+        }
+        
+        let pipeOut            = Pipe()
+        let pipeErr            = Pipe()
+        let process            = Process()
+        process.launchPath     = exec
+        process.arguments      = arguments
+        process.standardOutput = pipeOut
+        process.standardError  = pipeErr
         
         do
         {
@@ -107,9 +123,12 @@ class ALTool
         
         process.waitUntilExit()
         
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let dataOut = pipeOut.fileHandleForReading.readDataToEndOfFile()
+        let dataErr = pipeErr.fileHandleForReading.readDataToEndOfFile()
         
-        guard let out = String( bytes: data, encoding: .utf8 ) else
+        guard let out = String( bytes: dataOut, encoding: .utf8 ),
+              let err = String( bytes: dataErr, encoding: .utf8 )
+        else
         {
             throw NSError( domain: NSCocoaErrorDomain, code: -1, userInfo: [ NSLocalizedDescriptionKey : "No data received from altool" ] )
         }
@@ -127,13 +146,20 @@ class ALTool
                             let code    = errorDict.object( forKey: "code" )    as? NSNumber ?? NSNumber( integerLiteral: 0 )
                             let message = errorDict.object( forKey: "message" ) as? NSString ?? "Unknown error" as NSString
                             
-                            throw NSError( domain: NSCocoaErrorDomain, code: code.intValue, userInfo: [ NSLocalizedDescriptionKey : "Error", NSLocalizedRecoverySuggestionErrorKey : message ] )
+                            if let info = errorDict.object( forKey: "userInfo" ) as? NSDictionary, let failure = info.object( forKey: "NSLocalizedFailureReason" ) as? NSString
+                            {
+                                throw NSError( domain: NSCocoaErrorDomain, code: code.intValue, userInfo: [ NSLocalizedDescriptionKey : message, NSLocalizedRecoverySuggestionErrorKey : failure ] )
+                            }
+                            else
+                            {
+                                throw NSError( domain: NSCocoaErrorDomain, code: code.intValue, userInfo: [ NSLocalizedDescriptionKey : "Error", NSLocalizedRecoverySuggestionErrorKey : message ] )
+                            }
                         }
                     }
                 }
             }
         }
         
-        return out
+        return ( stdout: out, stderr: err )
     }
 }

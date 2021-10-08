@@ -135,33 +135,63 @@ class HistoryViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             DispatchQueue.global( qos: .userInitiated ).async
             {
                 let altool = ALTool( username: account.username, password: password )
-                let xml    = try? altool.notarizationHistory()
                 
-                if let xmlData = xml?.data( using: .utf8 )
+                do
                 {
-                    if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
-                    {
-                        let items = HistoryItem.ItemsFromDictionary( dict: history )
+                    let xml = try altool.notarizationHistory()
                         
-                        DispatchQueue.main.async
+                    if let xmlData = xml?.data( using: .utf8 )
+                    {
+                        if let history = try? PropertyListSerialization.propertyList( from: xmlData, options: [], format: nil ) as? NSDictionary
                         {
-                            items.forEach
+                            let items = HistoryItem.ItemsFromDictionary( dict: history )
+                            
+                            DispatchQueue.main.async
                             {
-                                o in
-                                
-                                if self.items.contains( o ) == false
+                                items.forEach
                                 {
-                                    self.items.insert( o )
+                                    o in
+                                    
+                                    if self.items.contains( o ) == false
+                                    {
+                                        self.items.insert( o )
+                                    }
                                 }
                             }
                         }
                     }
+                        
+                    DispatchQueue.main.async
+                    {
+                        self.loading    = false
+                        self.refreshing = false
+                    }
                 }
-                    
-                DispatchQueue.main.async
+                catch let error
                 {
-                    self.loading    = false
-                    self.refreshing = false
+                    if userInitiated
+                    {
+                        DispatchQueue.main.async
+                        {
+                            let alert = NSAlert( error: error )
+                            
+                            if let window = self.view.window
+                            {
+                                alert.beginSheetModal( for: window, completionHandler: nil )
+                            }
+                            else
+                            {
+                                alert.runModal()
+                            }
+                            
+                            self.loading    = false
+                            self.refreshing = false
+                        }
+                    }
+                    else
+                    {
+                        print( error )
+                    }
                 }
             }
         }
